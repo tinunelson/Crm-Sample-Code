@@ -21,13 +21,13 @@ namespace CliConsumer
         public static void GetConfig()
         {
             Console.Write("Enter the RabbitMQ endpoint: ");
-            _brokerEndpoint = Console.ReadLine();
+            _brokerEndpoint = "hare.rmq.cloudamqp.com";
             Console.Write("Enter the RabbitMQ username: ");
-            _brokerUser = Console.ReadLine();
+            _brokerUser = "nkaawtkq";
             Console.Write("Enter the RabbitMQ password: ");
-            _brokerPassword = ReadPassword();
+            _brokerPassword = "7uwY1DJeqd3opoc9NAHmLqqtAfB6syz2";
             Console.Write("Enter the RabbitMQ queue name: ");
-            _queue = Console.ReadLine();
+            _queue = "CRM-Cases";
         }
 
         public static void Main()
@@ -41,9 +41,10 @@ namespace CliConsumer
             factory.HostName = _brokerEndpoint;
             factory.UserName = _brokerUser;
             factory.Password = _brokerPassword;
-            factory.VirtualHost = "/"; //assumes we use the default vhost
+            factory.VirtualHost = "nkaawtkq";  //assumes we use the default vhost
             factory.Protocol = Protocols.DefaultProtocol; //assumes we use the default protocol
             factory.Port = AmqpTcpEndpoint.UseDefaultPort; //assumes we use the default port
+            factory.Uri = "amqp://nkaawtkq:7uwY1DJeqd3opoc9NAHmLqqtAfB6syz2@hare.rmq.cloudamqp.com/nkaawtkq";
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())

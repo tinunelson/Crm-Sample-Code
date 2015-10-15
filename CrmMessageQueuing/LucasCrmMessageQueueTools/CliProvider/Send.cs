@@ -22,15 +22,15 @@ namespace CliProvider
         public static void GetConfig()
         {
             Console.Write("Enter the RabbitMQ endpoint: ");
-            _brokerEndpoint = Console.ReadLine();
+            _brokerEndpoint = "hare.rmq.cloudamqp.com";
             Console.Write("Enter the RabbitMQ username: ");
-            _brokerUser = Console.ReadLine();
+            _brokerUser = "nkaawtkq";
             Console.Write("Enter the RabbitMQ password: ");
-            _brokerPassword = ReadPassword();
+            _brokerPassword = "7uwY1DJeqd3opoc9NAHmLqqtAfB6syz2";
             Console.Write("Enter the RabbitMQ exchange name: ");
-            _exchange = Console.ReadLine();
+            _exchange = "CRM";
             Console.Write("Enter the RabbitMQ routing key: ");
-            _routingKey = Console.ReadLine();
+            _routingKey = "Case";
         }
 
         public static void Main()
@@ -44,10 +44,21 @@ namespace CliProvider
             factory.HostName = _brokerEndpoint;
             factory.UserName = _brokerUser;
             factory.Password = _brokerPassword;
-            factory.VirtualHost = "/"; //assumes we use the default vhost
+            factory.VirtualHost = "nkaawtkq"; //assumes we use the default vhost
             factory.Protocol = Protocols.DefaultProtocol; //assumes we use the default protocol
             factory.Port = AmqpTcpEndpoint.UseDefaultPort; //assumes we use the default port
-            IConnection conn = factory.CreateConnection();
+            factory.Uri = "amqp://nkaawtkq:7uwY1DJeqd3opoc9NAHmLqqtAfB6syz2@hare.rmq.cloudamqp.com/nkaawtkq";
+
+            try
+            {
+                IConnection conn = factory.CreateConnection();
+            }
+            catch (Exception e)
+            {
+                throw e;
+                
+            }
+            
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
